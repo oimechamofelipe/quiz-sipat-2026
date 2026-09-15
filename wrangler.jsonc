@@ -1,0 +1,20 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "quiz-sipat-2026",
+  "main": "src/index.js",
+  "compatibility_date": "2026-09-15",
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS",
+    "html_handling": "auto-trailing-slash",
+    "run_worker_first": ["/", "/host", "/admin", "/api/*", "/ws"]
+  },
+  "durable_objects": {
+    "bindings": [
+      { "name": "QUIZ_ROOM", "class_name": "QuizRoom" }
+    ]
+  },
+  "migrations": [
+    { "tag": "v1", "new_sqlite_classes": ["QuizRoom"] }
+  ]
+}

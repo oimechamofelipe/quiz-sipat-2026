@@ -1,0 +1,15 @@
+{
+  "name": "quiz-sipat-2026-cloudflare",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Quiz SIPAT 2026 Automazoom - Cloudflare Workers + Durable Objects",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "check": "node --check src/index.js && node --check src/QuizRoom.js"
+  },
+  "devDependencies": {
+    "wrangler": "^4.38.0"
+  }
+}

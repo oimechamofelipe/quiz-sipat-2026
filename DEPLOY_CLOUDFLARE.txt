@@ -1,0 +1,15 @@
+QUIZ SIPAT 2026 - DEPLOY RÁPIDO
+
+1) npm install
+2) npx wrangler login
+3) npx wrangler secret put SESSION_SECRET
+4) npx wrangler secret put BOOTSTRAP_ADMIN_USER
+5) npx wrangler secret put BOOTSTRAP_ADMIN_PASSWORD
+6) npm run deploy
+
+Depois abra:
+/        -> jogadores
+/host    -> TV/projetor
+/admin   -> painel com login
+
+No painel Admin, use "Usuários Admin" para criar outras contas com as mesmas permissões.
