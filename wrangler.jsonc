@@ -6,7 +6,7 @@
   "assets": {
     "directory": "./public",
     "binding": "ASSETS",
-    "html_handling": "auto-trailing-slash",
+    "html_handling": "none",
     "run_worker_first": ["/", "/host", "/admin", "/api/*", "/ws"]
   },
   "durable_objects": {
