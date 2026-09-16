@@ -1,3 +1,7 @@
+# HOTFIX v2.0.1
+
+Corrige o loop de redirecionamento de `/admin` e `/host` no Cloudflare Workers Static Assets usando `html_handling: "none"`.
+
 # Quiz SIPAT 2026 — Cloudflare v2.0
 
 Versão online do Quiz SIPAT 2026 Automazoom, preparada para GitHub + Cloudflare Workers.
@@ -107,3 +111,7 @@ A integração do Cloudflare com GitHub pode publicar novas versões automaticam
 - Depois disso, novos administradores devem ser criados pelo próprio painel.
 - Se você alterar `BOOTSTRAP_ADMIN_PASSWORD` depois, isso não troca a senha de uma conta já criada; use **Usuários Admin → Nova senha**.
 - Os arquivos de áudio são publicados como assets do Worker. Garanta que a empresa tenha direito/licença para disponibilizar publicamente as músicas usadas.
+
+
+## QR Code no Host (v2.0.2)
+A tela `/host` exibe um QR Code para `https://quiz-sipat-2026.automazoom.workers.dev`. No lobby ele aparece em destaque e durante o quiz fica reduzido no canto. O botão **Mostrar/Ocultar QR** no cabeçalho controla a exibição.

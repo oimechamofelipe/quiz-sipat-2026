@@ -4,6 +4,22 @@ const bgMusic=document.getElementById('bgMusic');
 const drumRoll=document.getElementById('drumRoll');
 const championsMusic=document.getElementById('championsMusic');
 const audioGate=document.getElementById('audioGate');
+
+const PLAYER_JOIN_URL='https://quiz-sipat-2026.automazoom.workers.dev';
+const qrToggle=document.getElementById('qrToggle');
+const qrMini=document.getElementById('qrMini');
+let qrVisible=localStorage.getItem('sipathostQrVisible')!=='0';
+function applyQrVisibility(){
+  document.body.classList.toggle('qr-hidden',!qrVisible);
+  if(qrToggle){qrToggle.textContent=qrVisible?'▦ Ocultar QR':'▦ Mostrar QR';qrToggle.classList.toggle('active',qrVisible)}
+  if(qrMini){
+    const showMini=qrVisible && S && !['lobby','suspense','final'].includes(S.phase);
+    qrMini.classList.toggle('show',!!showMini);
+  }
+}
+if(qrToggle)qrToggle.onclick=()=>{qrVisible=!qrVisible;localStorage.setItem('sipathostQrVisible',qrVisible?'1':'0');applyQrVisibility()};
+applyQrVisibility();
+
 let audioUnlocked=false,lastAudioPhase='';
 function clampAudio(v){return Math.max(0,Math.min(1,Number(v)||0))}
 function showAudioGate(show){if(audioGate)audioGate.style.display=show?'inline-flex':'none'}
@@ -38,7 +54,7 @@ connect('public',s=>{
   document.getElementById('roomSmall').textContent=`Sala única • ${s.players.length}/${s.maxPlayers}`;
   const qc=document.getElementById('questionCounter');
   if(qc)qc.textContent=s.totalQuestions?`${Math.max(0,s.currentQuestion+1)}/${s.totalQuestions}`:'0/0';
-  syncAudio();render();
+  syncAudio();render();applyQrVisibility();
 });
 function timerHtml(){const q=S.question||{};const total=(q.time||8)*1000;const rem=Math.max(0,S.remainingMs||0);const sec=Math.ceil(rem/1000);const p=Math.max(0,Math.min(100,rem/total*100));return `<div class="timer ${sec<=3?'urgent':''}" style="--p:${p}%"><strong>${sec}</strong></div>`}
 function rankRows(limit=6){return S.players.slice(0,limit).map(p=>`<div class="rank-row"><div class="rank-num">${p.rank}º</div><div class="avatar-circle">${avatarSvg(p.avatar)}</div><div><strong>${esc(p.name)}</strong>${p.isBot?'<div class="muted bot-label">BOT</div>':''}</div><div class="score">${fmtScore(p.score)}</div></div>`).join('')||'<div class="muted empty-state">Aguardando participantes...</div>'}
@@ -46,7 +62,7 @@ function lobbyPlayerTiles(){return S.players.map(p=>`<div class="player-tile pop
 function answeredCount(){return S.players.filter(p=>p.answered).length}
 function render(){if(!S)return;const key=`${S.phase}-${S.currentQuestion}`;if(key!==lastKey){lastKey=key;build();runPhaseEffect(key);}else updateLive()}
 function runPhaseEffect(key){if(effectKey===key)return;effectKey=key;if(S.phase==='reveal'&&(S.stats?.correct||0)>0)setTimeout(()=>confettiBurst(42,'normal'),250);if(S.phase==='final')setTimeout(()=>confettiBurst(150,'big'),250)}
-function build(){if(S.phase==='lobby')return lobby();if(S.phase==='countdown')return countdown();if(S.phase==='question')return question();if(S.phase==='reveal')return reveal();if(S.phase==='ranking')return ranking();if(S.phase==='loading')return loading();if(S.phase==='suspense')return suspense();if(S.phase==='final')return final()}
+function build(){let r;if(S.phase==='lobby')r=lobby();else if(S.phase==='countdown')r=countdown();else if(S.phase==='question')r=question();else if(S.phase==='reveal')r=reveal();else if(S.phase==='ranking')r=ranking();else if(S.phase==='loading')r=loading();else if(S.phase==='suspense')r=suspense();else if(S.phase==='final')r=final();applyQrVisibility();return r}
 function updateLive(){
   const t=document.getElementById('liveTimer');if(t)t.innerHTML=timerHtml();
   const c=document.getElementById('liveCount');if(c)c.textContent=`${S.players.length}/${S.maxPlayers}`;
@@ -67,7 +83,7 @@ function updateLive(){
   if(S.phase==='countdown'){const n=document.getElementById('countNumber');if(n)n.textContent=Math.max(1,Math.ceil((S.remainingMs||0)/1000))}
 }
 function lobby(){
-  screen.innerHTML=`<div class="screen-content lobby enter-anim"><section class="card lobby-hero"><div><span class="badge">QUIZ CORPORATIVO</span><h1 class="host-title">Quiz <span class="accent">SIPAT 2026</span><br>Automazoom</h1><p class="host-sub">Conhecimento que conecta. Segurança que se pratica.</p></div><div class="join-box"><div class="muted">Acesse no celular</div><div class="join-url">${esc(S.baseUrl)}</div><div class="muted room-label">Sala única</div><div class="join-note">Todos entram diretamente pelo mesmo endereço.</div></div><div class="safety-note"><img src="/assets/cipa.png" class="cipa-logo"><div><strong>Segurança é compromisso de todos.</strong><div class="muted">Escolha seu avatar e aguarde o início.</div></div></div></section><section class="card players-card"><div class="players-head"><div><h2>Jogadores conectados</h2><div class="muted">Até 31 participantes.</div></div><span class="badge"><span class="dot"></span><span id="liveCount">${S.players.length}/${S.maxPlayers}</span></span></div><div id="lobbyPlayerGrid" class="player-grid" data-signature="${S.players.map(p=>`${p.id}:${p.avatar}:${p.name}:${p.isBot?1:0}`).join('|')}">${lobbyPlayerTiles()}</div></section></div>`;
+  screen.innerHTML=`<div class="screen-content lobby enter-anim"><section class="card lobby-hero"><div><span class="badge">QUIZ CORPORATIVO</span><h1 class="host-title">Quiz <span class="accent">SIPAT 2026</span><br>Automazoom</h1><p class="host-sub">Conhecimento que conecta. Segurança que se pratica.</p></div><div class="join-box qr-join-box"><div class="qr-lobby-copy"><div class="muted">ENTRE PELO CELULAR</div><div class="join-url">${esc(PLAYER_JOIN_URL)}</div><div class="muted room-label">Sala única</div><div class="join-note">Aponte a câmera do celular para o QR Code ou acesse o endereço acima.</div></div><div class="qr-lobby"><div class="qr-frame"><img src="/assets/join_qr.png" alt="QR Code para entrar no Quiz SIPAT 2026"></div><strong>Escaneie para entrar</strong></div></div><div class="safety-note"><img src="/assets/cipa.png" class="cipa-logo"><div><strong>Segurança é compromisso de todos.</strong><div class="muted">Escolha seu avatar e aguarde o início.</div></div></div></section><section class="card players-card"><div class="players-head"><div><h2>Jogadores conectados</h2><div class="muted">Até 31 participantes.</div></div><span class="badge"><span class="dot"></span><span id="liveCount">${S.players.length}/${S.maxPlayers}</span></span></div><div id="lobbyPlayerGrid" class="player-grid" data-signature="${S.players.map(p=>`${p.id}:${p.avatar}:${p.name}:${p.isBot?1:0}`).join('|')}">${lobbyPlayerTiles()}</div></section></div>`;
 }
 function countdown(){screen.innerHTML=`<div class="screen-content countdown enter-anim"><div><div class="eyebrow large">TODO MUNDO PRONTO?</div><div id="countNumber" class="count-number">${Math.max(1,Math.ceil((S.remainingMs||0)/1000))}</div><h2>O quiz vai começar</h2></div></div>`}
 function question(){

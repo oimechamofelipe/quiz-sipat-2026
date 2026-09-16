@@ -50,3 +50,16 @@ body.host-page{overflow:hidden}.host{min-height:100vh;display:flex;flex-directio
 .player-admin{display:grid;grid-template-columns:42px 52px minmax(0,1fr) auto auto;gap:12px;align-items:center;padding:10px 12px;border:1px solid var(--line-soft);border-radius:13px;background:#0e2230;margin-bottom:8px}
 .player-admin .kick-btn{padding:9px 12px;white-space:nowrap;font-size:12px}
 @media(max-width:760px){.player-admin{grid-template-columns:36px 46px 1fr auto}.player-admin>.score{display:none}.player-admin .kick-btn{grid-column:3/5;justify-self:end}}
+
+
+/* Cloud v2.0.2 - QR Code de entrada */
+.qr-toggle{border:1px solid #31546a;background:#102b3a;color:#b9e9f7;border-radius:999px;padding:8px 12px;font-weight:850;cursor:pointer;transition:.16s}
+.qr-toggle:hover,.qr-toggle.active{background:#15384a;border-color:#4c829e;color:#e9fbff}
+.qr-join-box{display:grid;grid-template-columns:minmax(0,1fr) 190px;gap:24px;align-items:center}
+.qr-lobby-copy{min-width:0}.qr-lobby{display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;color:#dff8ff;font-size:13px}
+.qr-frame{background:#fff;border-radius:18px;padding:11px;box-shadow:0 14px 32px rgba(0,0,0,.28),0 0 0 1px rgba(255,255,255,.14)}
+.qr-frame img{display:block;width:156px;height:156px;object-fit:contain;image-rendering:pixelated}
+.host-main{position:relative}.host-qr-mini{position:absolute;right:20px;bottom:18px;z-index:30;display:flex;align-items:center;gap:10px;padding:9px 12px 9px 9px;border-radius:14px;background:rgba(7,19,29,.93);border:1px solid #315064;box-shadow:0 12px 35px rgba(0,0,0,.32);opacity:0;transform:translateY(12px) scale(.96);pointer-events:none;transition:.2s opacity,.2s transform}
+.host-qr-mini.show{opacity:1;transform:none}.host-qr-mini img{width:72px;height:72px;background:#fff;border-radius:9px;padding:4px;image-rendering:pixelated}.host-qr-mini strong,.host-qr-mini span{display:block}.host-qr-mini strong{font-size:13px;color:#eafaff}.host-qr-mini span{font-size:11px;color:#8fb2c2;margin-top:2px}
+.qr-hidden .qr-lobby,.qr-hidden .host-qr-mini{display:none!important}.qr-hidden .qr-join-box{grid-template-columns:1fr}
+@media(max-width:1100px){.qr-join-box{grid-template-columns:minmax(0,1fr) 155px;gap:16px}.qr-frame img{width:126px;height:126px}.host-qr-mini{right:12px;bottom:12px}.host-qr-mini img{width:60px;height:60px}}
