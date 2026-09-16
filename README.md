@@ -115,3 +115,8 @@ A integração do Cloudflare com GitHub pode publicar novas versões automaticam
 
 ## QR Code no Host (v2.0.2)
 A tela `/host` exibe um QR Code para `https://quiz-sipat-2026.automazoom.workers.dev`. No lobby ele aparece em destaque e durante o quiz fica reduzido no canto. O botão **Mostrar/Ocultar QR** no cabeçalho controla a exibição.
+
+
+## v2.0.5
+- QR Code pequeno aparece apenas em contagem, pergunta e carregamento, evitando cobrir o destaque de mais rápido/resultados.
+- Após o resultado final, o Admin mostra **Finalizar sessão**. Esse botão remove todos os participantes e pontuações e volta o Host ao lobby vazio, preservando perguntas, configurações e usuários administrativos.

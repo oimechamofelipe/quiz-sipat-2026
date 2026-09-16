@@ -13,7 +13,7 @@ function applyQrVisibility(){
   document.body.classList.toggle('qr-hidden',!qrVisible);
   if(qrToggle){qrToggle.textContent=qrVisible?'▦ Ocultar QR':'▦ Mostrar QR';qrToggle.classList.toggle('active',qrVisible)}
   if(qrMini){
-    const showMini=qrVisible && S && !['lobby','suspense','final'].includes(S.phase);
+    const showMini=qrVisible && S && ['countdown','question','loading'].includes(S.phase);
     qrMini.classList.toggle('show',!!showMini);
   }
 }

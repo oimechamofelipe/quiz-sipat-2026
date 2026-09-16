@@ -19,7 +19,8 @@ connect('public',s=>{
     confirmedJoined=false;
     lastChoice=null; lastChoiceQ=-1;
     localStorage.removeItem('quizPlayerId');
-    kickedMessage='Você foi removido pelo administrador. Escolha novamente seu nome e avatar para entrar.';
+    kickedMessage=hasSeenFinal?'':'Você foi removido pelo administrador. Escolha novamente seu nome e avatar para entrar.';
+    hasSeenFinal=false;
   }
   render();
 });
