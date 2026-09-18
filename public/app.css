@@ -64,3 +64,7 @@ body.host-page{overflow:hidden}.host{min-height:100vh;display:flex;flex-directio
 .qr-hidden .qr-lobby,.qr-hidden .host-qr-mini{display:none!important}.qr-hidden .qr-join-box{grid-template-columns:1fr}
 @media(max-width:1100px){.qr-join-box{grid-template-columns:minmax(0,1fr) 170px;gap:18px}.qr-frame img{width:142px;height:142px}.host-qr-mini{right:12px;bottom:12px}.host-qr-mini img{width:60px;height:60px}}
 @media(max-width:920px){.qr-join-box{grid-template-columns:1fr;gap:16px}.qr-lobby{align-items:flex-start;text-align:left}.qr-frame img{width:148px;height:148px}}
+
+/* Cloud v2.0.6 - preservar quebras de linha digitadas nas perguntas */
+.host-page .q-text{white-space:pre-line}
+.current-q h3{white-space:pre-line}
