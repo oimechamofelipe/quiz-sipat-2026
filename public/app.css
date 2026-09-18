@@ -68,3 +68,7 @@ body.host-page{overflow:hidden}.host{min-height:100vh;display:flex;flex-directio
 /* Cloud v2.0.6 - preservar quebras de linha digitadas nas perguntas */
 .host-page .q-text{white-space:pre-line}
 .current-q h3{white-space:pre-line}
+
+/* v2.0.7 - quebras de linha reais nas perguntas */
+.host-page .q-text{white-space:normal}
+.current-q h3{white-space:normal}

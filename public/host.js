@@ -5,6 +5,8 @@ const drumRoll=document.getElementById('drumRoll');
 const championsMusic=document.getElementById('championsMusic');
 const audioGate=document.getElementById('audioGate');
 
+
+function multilineHtml(s=''){return esc(s).replace(/\r\n|\r|\n/g,'<br>')}
 const PLAYER_JOIN_URL='https://quiz-sipat-2026.automazoom.workers.dev';
 const qrToggle=document.getElementById('qrToggle');
 const qrMini=document.getElementById('qrMini');
@@ -88,7 +90,7 @@ function lobby(){
 function countdown(){screen.innerHTML=`<div class="screen-content countdown enter-anim"><div><div class="eyebrow large">TODO MUNDO PRONTO?</div><div id="countNumber" class="count-number">${Math.max(1,Math.ceil((S.remainingMs||0)/1000))}</div><h2>O quiz vai começar</h2></div></div>`}
 function question(){
   const q=S.question,answered=answeredCount(),pct=S.players.length?answered/S.players.length*100:0;
-  screen.innerHTML=`<div class="screen-content question-layout enter-anim"><section class="card q-main"><div class="q-meta"><div class="q-progress-wrap"><div class="q-topline"><strong>Pergunta ${S.currentQuestion+1} de ${S.totalQuestions}</strong><span class="category-pill">${esc(q.category)}</span></div><div class="progress"><span style="width:${((S.currentQuestion+1)/S.totalQuestions)*100}%"></span></div></div><div id="liveTimer">${timerHtml()}</div></div><div class="q-text">${esc(q.question)}</div><div class="answer-grid">${q.answers.map((a,i)=>`<div class="answer-card q-answer-${i}" style="--answer:${answerColor(i)}"><div class="answer-letter">${answerLetter(i)}</div><div>${esc(a)}</div></div>`).join('')}</div></section><aside class="card side-rank"><div class="side-title"><div><div class="eyebrow">PLACAR</div><h3>Antes da rodada</h3></div><span class="lock-icon">🔒</span></div><div id="sideRankRows">${rankRows(5)}</div><div class="response-status"><div class="response-line"><strong id="answeredCount">${answered}/${S.players.length} responderam</strong><span class="muted">Pontuação só atualiza no fim.</span></div><div class="response-progress"><span id="answerProgress" style="width:${pct}%"></span></div></div></aside></div>`;
+  screen.innerHTML=`<div class="screen-content question-layout enter-anim"><section class="card q-main"><div class="q-meta"><div class="q-progress-wrap"><div class="q-topline"><strong>Pergunta ${S.currentQuestion+1} de ${S.totalQuestions}</strong><span class="category-pill">${esc(q.category)}</span></div><div class="progress"><span style="width:${((S.currentQuestion+1)/S.totalQuestions)*100}%"></span></div></div><div id="liveTimer">${timerHtml()}</div></div><div class="q-text">${multilineHtml(q.question)}</div><div class="answer-grid">${q.answers.map((a,i)=>`<div class="answer-card q-answer-${i}" style="--answer:${answerColor(i)}"><div class="answer-letter">${answerLetter(i)}</div><div>${esc(a)}</div></div>`).join('')}</div></section><aside class="card side-rank"><div class="side-title"><div><div class="eyebrow">PLACAR</div><h3>Antes da rodada</h3></div><span class="lock-icon">🔒</span></div><div id="sideRankRows">${rankRows(5)}</div><div class="response-status"><div class="response-line"><strong id="answeredCount">${answered}/${S.players.length} responderam</strong><span class="muted">Pontuação só atualiza no fim.</span></div><div class="response-progress"><span id="answerProgress" style="width:${pct}%"></span></div></div></aside></div>`;
 }
 function reveal(){
   const q=S.question,st=S.stats||{counts:[0,0,0,0],total:0,correct:0},max=Math.max(1,...st.counts);
